@@ -80,7 +80,7 @@ nav .lmt                       {height: 100%;}
 .active                        {color: #fff;}
 #work-item-box                 {position: absolute; width: calc( 100% * ( ( 1870 - 352 ) / 1870 ) ); height: calc( 2 * 418px ); left: calc( 100% * ( 352 / 1870 ) ); top: 113px; /*overflow: hidden;*/ letter-spacing: -4px; overflow: auto;}
 #work-item-box.smooth          {-webkit-overflow-scrolling: touch;}
-#work-list                     {position: relative; width: calc( ( 500px + 65px ) * 5 + ( 500px + 65px ) * 2 ); height: calc( 2 * 418px ); left: 0px; top: 0px; 
+#work-list                     {position: relative; width: calc( ( 500px + 65px ) * 1 + ( 500px + 65px ) * 4 ); height: calc( 2 * 418px ); left: 0px; top: 0px; 
 	cursor: move;
     cursor: grab;
     cursor: -moz-grab;
@@ -936,7 +936,7 @@ filter: alpha(opacity = 100);
 		height: calc( 100vw * ( 991 / 728 ) );
 	}
 	#work-list{
-		width: calc( 100vw * ( ( 500 + 65 ) / 728 ) * 5 + 100vw * ( ( 500 + 65 ) / 728 ) * 2 );
+		width: calc( 100vw * ( ( 500 + 65 ) / 728 ) * 1 + 100vw * ( ( 500 + 65 ) / 728 ) * 4 );
 		height: calc( 100vw * ( 2 * 418 / 728 ) );
 	}
 	#work-interface-site{
