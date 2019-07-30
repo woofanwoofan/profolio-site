@@ -739,7 +739,7 @@ require(
                 'detail-tag-category':['Design','UI','UX','Website'],
                 'detail-tag-tool':['Ps','Ai'],
                 'detail-printscreen':['',],
-                'link':'https://www.herdays.tw/',
+                'link':'https://www.igift.tw/',
                 'device':['pc','sp']
             },
             {
