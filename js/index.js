@@ -57,25 +57,25 @@ require(
                     'page-state': 1
                 }
             );
-            if(cur_column == ( column_campaign + column_official - 2 ) ){
+            if(cur_column == ( column_interface + column_graphic - 2 ) ){
                 $.work.attr(
                     {
                         'page-state': 2
                     }
                 );
             }
-            if(cur_column >= ( column_campaign + column_official ) ){
-                cur_column = column_campaign + column_official - 1;
+            if(cur_column >= ( column_interface + column_graphic ) ){
+                cur_column = column_interface + column_graphic - 1;
             }
             // console.log(cur_column);  
-            if(cur_column <= ( column_campaign -1 ) ){
-                scroll_work.scrollIntoView($.campaign_work_item.eq(cur_column).get(0));
+            if(cur_column <= ( column_interface -1 ) ){
+                scroll_work.scrollIntoView($.interface_work_item.eq(cur_column).get(0));
                 $.work_cate_item.removeClass('active');
-                $.go_campaign.addClass('active');
+                $.go_interface.addClass('active');
             } else {
-                scroll_work.scrollIntoView($.official_work_item.eq(cur_column-column_campaign).get(0));
+                scroll_work.scrollIntoView($.graphic_work_item.eq(cur_column-column_interface).get(0));
                 $.work_cate_item.removeClass('active');
-                $.go_official.addClass('active');
+                $.go_graphic.addClass('active');
             }
         }
         $.fn.move_backward = function () {
@@ -96,14 +96,14 @@ require(
                 cur_column = 0;
             }
             // console.log(cur_column);  
-            if(cur_column <= ( column_campaign -1 ) ){
-                scroll_work.scrollIntoView($.campaign_work_item.eq(cur_column).get(0));
+            if(cur_column <= ( column_interface -1 ) ){
+                scroll_work.scrollIntoView($.interface_work_item.eq(cur_column).get(0));
                 $.work_cate_item.removeClass('active');
-                $.go_campaign.addClass('active');
+                $.go_interface.addClass('active');
             } else {
-                scroll_work.scrollIntoView($.official_work_item.eq(cur_column-column_campaign).get(0));
+                scroll_work.scrollIntoView($.graphic_work_item.eq(cur_column-column_interface).get(0));
                 $.work_cate_item.removeClass('active');
-                $.go_official.addClass('active');
+                $.go_graphic.addClass('active');
             }
         }
         $.fn.DragInIt = function () {
@@ -187,9 +187,9 @@ require(
                     dragStarted = false;
                     // console.log('mouseup or touchend and clickFlag = ' + clickFlag);
                     // console.log(currX - startPozX);
-                    // for(var i = 0 ; i < column_campaign; i ++){
-                    //     console.log(i+' : '+scroll_work.isVisible($.campaign_work_item.eq(i).get(0)));
-                    //     if(scroll_work.isVisible($.campaign_work_item.eq(i).get(0))){
+                    // for(var i = 0 ; i < column_interface; i ++){
+                    //     console.log(i+' : '+scroll_work.isVisible($.interface_work_item.eq(i).get(0)));
+                    //     if(scroll_work.isVisible($.interface_work_item.eq(i).get(0))){
                     //         cur_column = i;
                     //         return;
                     //     }
@@ -345,7 +345,7 @@ require(
                         if(webMode == 'PC'){
                             scroll_work.scrollIntoView(document.getElementById('work-'+$(e.target).attr('go')+'-site'));
                         
-                            if( $(e.target).attr('go') == 'campaign' ){
+                            if( $(e.target).attr('go') == 'interface' ){
                                 cur_column = 0;
                                 $.work.attr(
                                     {
@@ -353,7 +353,7 @@ require(
                                     }
                                 );
                             } else {
-                                cur_column = column_campaign;
+                                cur_column = column_interface;
                                 $.work.attr(
                                     {
                                         'page-state': 2
@@ -363,10 +363,10 @@ require(
                         } else {
                             $.work_item_box.removeClass('smooth');
                             var go_scroll_left = 0;
-                            if($(e.target).attr('go') == 'campaign'){
+                            if($(e.target).attr('go') == 'interface'){
                                 go_scroll_left = 0;
                             } else {
-                                go_scroll_left = $.official_work_item.eq(0).prop('offset-left') - $.work_item_box.prop('offset-left')
+                                go_scroll_left = $.graphic_work_item.eq(0).prop('offset-left') - $.work_item_box.prop('offset-left')
                             }
                             // console.log(go_scroll_left);
                             $.work_item_box.animate(
@@ -405,28 +405,67 @@ require(
                             $.detail_tag_tool_list.append(temp_tool_list);
                         }
                         if(webMode == 'PC'){
-                            $.tab_box.html('<div class="tab-btn" id="tab-pc">PC</div><div class="tab-btn" id="tab-sp">SP</div>');
-                            $.Body.attr({"show-pic":"pc"});
+                            if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1 && work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
+                                $.tab_box.html('<div class="tab-btn" id="tab-pc">PC</div><div class="tab-btn" id="tab-sp">SP</div>');
+                                $.Body.attr({"show-pic":"pc"});
+                                pc_content();
+                                sp_content();
+                            } else if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1){
+                                $.tab_box.html('');
+                                console.log("sp");
+                                $.Body.attr({"show-pic":"sp"});
+                                sp_content();
+                            } else if(work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
+                                $.tab_box.html('');
+                                console.log("pc");
+                                $.Body.attr({"show-pic":"pc"});
+                                pc_content();
+                            }
                         } else {
-                            $.tab_box.html('<div class="tab-btn" id="tab-sp">SP</div><div class="tab-btn" id="tab-pc">PC</div>');
-                            $.Body.attr({"show-pic":"sp"});
+                            if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1 && work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
+                                $.tab_box.html('<div class="tab-btn" id="tab-sp">SP</div><div class="tab-btn" id="tab-pc">PC</div>');
+                                $.Body.attr({"show-pic":"sp"});
+                                pc_content();
+                                sp_content();
+                            } else if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1){
+                                $.tab_box.html('');
+                                console.log("sp");
+                                $.Body.attr({"show-pic":"sp"});
+                                sp_content();
+                            } else if(work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
+                                $.tab_box.html('');
+                                console.log("pc");
+                                $.Body.attr({"show-pic":"pc"});
+                                pc_content();
+                            }
                         }
-                        $.detail_content_pc.html('');
-                        for(var i = 0; i < work_data[temp_cate][temp_index]['detail-printscreen'].length; i ++){
-                            temp_detail_content_pc = 
-                            '<img class="detail-printscreen" src="images/work/work-'+work_data[temp_cate][temp_index]['work-name']+'-'+i+'.png">'+
-                            ((work_data[temp_cate][temp_index]['detail-printscreen'][i] == '')?'':'<p class="detail-word">'+work_data[temp_cate][temp_index]['detail-printscreen'][i]+'</p>');
-                            console.log(temp_detail_content_pc);
-                            $.detail_content_pc.append(temp_detail_content_pc);
+                        function pc_content(){
+                            $.detail_content_pc.html('');
+                            for(var i = 0; i < work_data[temp_cate][temp_index]['detail-printscreen'].length; i ++){
+                                temp_detail_content_pc = 
+                                '<img class="detail-printscreen" src="images/work/work-'+work_data[temp_cate][temp_index]['work-name']+'-'+i+'-pc.png">'+
+                                ((work_data[temp_cate][temp_index]['detail-printscreen'][i] == '')?'':'<p class="detail-word">'+work_data[temp_cate][temp_index]['detail-printscreen'][i]+'</p>');
+                                console.log(temp_detail_content_pc);
+                                $.detail_content_pc.append(temp_detail_content_pc);
+                            }
                         }
-                        $.detail_content_sp.html('');
-                        for(var i = 0; i < work_data[temp_cate][temp_index]['detail-printscreen'].length; i ++){
-                            temp_detail_content_sp = 
-                            '<img class="detail-printscreen" src="images/work/work-'+work_data[temp_cate][temp_index]['work-name']+'-'+i+'.png">'+
-                            ((work_data[temp_cate][temp_index]['detail-printscreen'][i] == '')?'':'<p class="detail-word">'+work_data[temp_cate][temp_index]['detail-printscreen'][i]+'</p>');
-                            $.detail_content_sp.append(temp_detail_content_sp);
+                        function sp_content(){
+                            $.detail_content_sp.html('');
+                            for(var i = 0; i < work_data[temp_cate][temp_index]['detail-printscreen'].length; i ++){
+                                temp_detail_content_sp = 
+                                '<img class="detail-printscreen" src="images/work/work-'+work_data[temp_cate][temp_index]['work-name']+'-'+i+'-sp.png">'+
+                                ((work_data[temp_cate][temp_index]['detail-printscreen'][i] == '')?'':'<p class="detail-word">'+work_data[temp_cate][temp_index]['detail-printscreen'][i]+'</p>');
+                                $.detail_content_sp.append(temp_detail_content_sp);
+                            }
                         }
-                        $.detail_link.attr({'href': work_data[temp_cate][temp_index]['link']});
+                        if(work_data[temp_cate][temp_index]['link'] !== ""){
+                            $.detail_link.attr({'href': work_data[temp_cate][temp_index]['link']});
+                            $.Body.removeClass("no-detail-link");
+                        } else {
+                            $.detail_link.attr({'href': work_data[temp_cate][temp_index]['link']});
+                            $.Body.addClass("no-detail-link");
+                        }
+                        
                         if(webMode=='PC'){
                             scroll_detail.scrollTo(0,0);
                         } else {
@@ -554,17 +593,17 @@ require(
                     }
                 );  
                 var pre_cate = -1,
-                    cur_cate = 0;// 0 : campaign , 1 : official
+                    cur_cate = 0;// 0 : interface , 1 : graphic
                 function check_cate(){
                     if(cur_cate !== pre_cate){
                         switch(cur_cate){
                             case 0:
                                 $.work_cate_item.removeClass('active');
-                                $.go_campaign.addClass('active');
+                                $.go_interface.addClass('active');
                             break;
                             case 1:
                                 $.work_cate_item.removeClass('active');
-                                $.go_official.addClass('active');
+                                $.go_graphic.addClass('active');
                             break;
                         }
                         pre_cate = cur_cate;
@@ -572,13 +611,13 @@ require(
                 }
                 $.work_item_box.scroll(
                     function(){
-                        if( $.official_work_item.eq(0).offset().left < parseInt($.Body.width()) * ( 2 / 3) ){
+                        if( $.graphic_work_item.eq(0).offset().left < parseInt($.Body.width()) * ( 2 / 3) ){
                             cur_cate = 1;
                         } else {
                             cur_cate = 0;
                         }
                         check_cate();
-                        // console.log('scrollLeft : '+$.work_item_box.scrollLeft()+' offset: '+$.official_work_item.eq(0).offset().left);
+                        // console.log('scrollLeft : '+$.work_item_box.scrollLeft()+' offset: '+$.graphic_work_item.eq(0).offset().left);
                     }
                 );
             }
@@ -604,197 +643,151 @@ require(
     $(function(){
         $.Body = $('body');
         $.Window = $(window);
-        work_campaign_array = [
+        work_interface_array = [
             {
-                'work-name':'BailanTheater',
+                'work-name':'hyundaiuiindex',
                 'thumb-num': 0,
-                'work-title':'洗濯するお母さんあるある',
-                'detail-title': '洗濯するお母さんあるある',
-                'detail-time': '2017.06',
-                'detail-tag-category':['Front-end','Website','RWD'],
+                'work-title':'現代汽車會員App',
+                'detail-title': '提供會員預約進場服務及里程紀錄等功能性應用',
+                'detail-time': '2018.04',
+                'detail-tag-category':['UI','UX','App','Design'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','','','','','',''],
+                'link':'',
+                'device':['sp']
+            },
+            {
+                'work-name':'jtiapp',
+                'thumb-num': 0,
+                'work-title':'傑太日煙叫貨系統App',
+                'detail-title': '提供店家線上下訂商品及回饋',
+                'detail-time': '2018.01',
+                'detail-tag-category':['UI','UX','App','Design'],
                 'detail-tag-tool':['html','css','sass','js','pixi.js'],
-                'detail-printscreen':['','',''],
-                'link':'https://www.bailan.com.tw/BailanTheater/'
-            },
-            {
-                'work-name':'2015momsday',
-                'thumb-num': 0,
-                'work-title':'お母さんのことよーく知ってますか？',
-                'detail-title': 'お母さんのことよーく知ってますか？',
-                'detail-time': '2015.04',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE','時限クイズ'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['',''],
-                'link':'http://www.lianan.com.tw/2015momsday/'
-            },
-            {
-                'work-name':'dinnerathome',
-                'thumb-num': 0,
-                'work-title':'幸せは家で食事',
-                'detail-title': '幸せは家で食事',
-                'detail-time': '2017.05.15',
-                'detail-tag-category':['Front-end','Website','PC only'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':[''],
-                'link':'https://jerjer.web.fc2.com/works/dinnerathome/'
-            },
-            {
-                'work-name':'lipton-rainforest',
-                'thumb-num': 0,
-                'work-title':'お茶で熱帯雨林を守りましょう',
-                'detail-title': 'お茶で熱帯雨林を守りましょう',
-                'detail-time': '2017.05.15',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['',''],
-                'link':'https://jerjer.web.fc2.com/works/lipton_rainforest/'
-            },
-            {
-                'work-name':'Loreal-hyd2014',
-                'thumb-num': 0,
-                'work-title':'敏感肌を救う',
-                'detail-title': '敏感肌を救う',
-                'detail-time': '2014.10',
-                'detail-tag-category':['Front-end','Website','PC only'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['','',''],
-                'link':'https://jerjer.web.fc2.com/works/Loreal_hyd2014/'
-            },
-            {
-                'work-name':'Rexona-2017',
-                'thumb-num': 6,
-                'work-title':'あなたの座右の銘は何なんですか？',
-                'detail-title': 'あなたの座右の銘は何なんですか？',
-                'detail-time': '2017.06',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE'],
-                'detail-tag-tool':['html','css','js','pixi.js','css clip'],
-                'detail-printscreen':['','','','','',''],
-                'link':'https://jerjer.web.fc2.com/works/Rexona_2017/'
-            },
-            {
-                'work-name':'lux-channel5',
-                'thumb-num': 0,
-                'work-title':'脱出ゲーム',
-                'detail-title': '脱出ゲーム',
-                'detail-time': '2016.02',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE','game'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['','',''],
-                'link':'https://jerjer.web.fc2.com/works/lux_channel5/'
-            },
-            {
-                'work-name':'soup-clean-label',
-                'thumb-num': 0,
-                'work-title':'シンプルで美味しい',
-                'detail-title': 'シンプルで美味しい',
-                'detail-time': '2015.03',
-                'detail-tag-category':['Front-end','Website','RWD'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['','',''],
-                'link':'https://campaign.knorr.com.tw/soup-clean-label/'
-            },
-            {
-                'work-name':'2016micellarwater',
-                'thumb-num': 0,
-                'work-title':'メイクのプロおすすめ！一番お得なメイク落とし',
-                'detail-title': 'メイクのプロおすすめ！一番お得なメイク落とし',
-                'detail-time': '2016.09',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE','game'],
-                'detail-tag-tool':['html','css','js','pixi.js'],
-                'detail-printscreen':['','',''],
-                'link':'https://jerjer.web.fc2.com/works/2016micellarwater/'
-            },
-            {
-                'work-name':'2017deepbreath',
-                'thumb-num': 0,
-                'work-title':'お肌の深呼吸',
-                'detail-title': 'お肌の深呼吸',
-                'detail-time': '2017.05',
-                'detail-tag-category':['Front-end','Website','PC & MOBILE'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['',''],
-                'link':'https://jerjer.web.fc2.com/works/2017deepbreath/'
+                'detail-printscreen':['','','','','','','','',''],
+                'link':'',
+                'device':['sp']
             }
         ];
-        work_official_array = [
+        work_graphic_array = [
             {
-                'work-name':'bailan',
+                'work-name':'rexonaindexcupid',
                 'thumb-num': 0,
-                'work-title':'bailan公式サイト',
-                'detail-title': 'bailan公式サイト',
-                'detail-time': '2017.04',
-                'detail-tag-category':['Front-end','Website','RWD'],
-                'detail-tag-tool':['html','css','sass','js','pixi.js'],
-                'detail-printscreen':['','',''],
-                'link':'https://www.bailan.com.tw/'
-            },
-            {
-                'work-name':'heineken',
-                'thumb-num': 0,
-                'work-title':'heineken台湾店舗情報公式サイト',
-                'detail-title': 'heineken台湾店舗情報公式サイト',
-                'detail-time': '2018.03',
-                'detail-tag-category':['Front-end','Website','RWD'],
-                'detail-tag-tool':['html','css','js','google map api'],
-                'detail-printscreen':['',''],
-                'link':'https://www.heineken.com/tw/beermap'
-            },
-            {
-                'work-name':'mitsubishi-motors',
-                'thumb-num': 0,
-                'work-title':'mitsubishi-motors台湾公式サイト',
-                'detail-title': 'mitsubishi-motors台湾公式サイト',
-                'detail-time': '2017.10',
-                'detail-tag-category':['Front-end','Website','RWD'],
-                'detail-tag-tool':['html','css','sass','js'],
-                'detail-printscreen':['','',''],
-                'link':'https://www.mitsubishi-motors.com.tw/'
-            },
-            {
-                'work-name':'neutral',
-                'thumb-num': 0,
-                'work-title':'neutral台湾公式サイト',
-                'detail-title': 'neutral台湾公式サイト',
+                'work-title':'Rexona蕊娜敢動精彩每一刻',
+                'detail-title': '從品牌策略發想到設計執行，操作一波線上線下活動',
                 'detail-time': '2016.07',
-                'detail-tag-category':['Front-end','Website','RWD'],
-                'detail-tag-tool':['html','css','js'],
-                'detail-printscreen':['',''],
-                'link':'https://www.neutral.com.tw/'
+                'detail-tag-category':['Front-end','Website','RWD','UI','UX','Creative','Design','TVC'],
+                'detail-tag-tool':['html','css','sass','js','pixi.js','Ps','Ai'],
+                'detail-printscreen':['','','','','','','','','','','','','',''],
+                'link':'https://www.youtube.com/watch?v=I3itvsCHgZk',
+                'device':['sp']
+            },
+            {
+                'work-name':'rexonaindexcupid2',
+                'thumb-num': 0,
+                'work-title':'Rexona蕊娜異味指數',
+                'detail-title': '從品牌策略發想到設計執行，操作一波線上線下活動',
+                'detail-time': '2017.07',
+                'detail-tag-category':['Website','RWD','UI','UX','Creative','Design','TVC'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','',''],
+                'link':'https://www.youtube.com/watch?v=tuaeeWXTRx8',
+                'device':['sp']
+            },
+            {
+                'work-name':'bailanindex',
+                'thumb-num': 0,
+                'work-title':'白蘭官方網站',
+                'detail-title': '白蘭洗衣精官方網站Re-design',
+                'detail-time': '2017.03',
+                'detail-tag-category':['Design','UI','UX','Website','RWD'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','','','',''],
+                'link':'https://www.bailan.com.tw/',
+                'device':['pc','sp']
+            },
+            {
+                'work-name':'chocosense',
+                'thumb-num': 0,
+                'work-title':'可可紳士官方形象',
+                'detail-title': '品牌定位、產品開發、形象設計、包裝設計、網站設計',
+                'detail-time': '2019.07',
+                'detail-tag-category':['Vi','Design','Package Design','UI','UX','Website','RWD'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','','','','','','','','','','','',''],
+                'link':'https://www.chocosense.tw/',
+                'device':['pc','sp']
+            },
+            {
+                'work-name':'herdays',
+                'thumb-num': 0,
+                'work-title':'三十日官方網站',
+                'detail-title': '天然草本呵護衛生棉官方形象及週邊設計',
+                'detail-time': '2017.03',
+                'detail-tag-category':['Design','UI','UX','Website'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','',],
+                'link':'https://www.herdays.tw/',
+                'device':['pc','sp']
+            },
+            {
+                'work-name':'igift',
+                'thumb-num': 0,
+                'work-title':'愛禮物官方網站',
+                'detail-title': '愛禮物愛禮物愛禮物愛禮物愛禮物愛禮物',
+                'detail-time': '2017.03',
+                'detail-tag-category':['Design','UI','UX','Website'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','',],
+                'link':'https://www.herdays.tw/',
+                'device':['sp']
+            },
+            {
+                'work-name':'KnorrQCS',
+                'thumb-num': 0,
+                'work-title':'白蘭官方網站',
+                'detail-title': '白蘭洗衣精官方網站Re-design',
+                'detail-time': '2017.03',
+                'detail-tag-category':['Design','UI','UX','Website'],
+                'detail-tag-tool':['Ps','Ai'],
+                'detail-printscreen':['','',],
+                'link':'',
+                'device':['sp']
             }
         ];
         work_data = {
-            'campaign': work_campaign_array,
-            'official': work_official_array
+            'interface': work_interface_array,
+            'graphic': work_graphic_array
         }
-        $.campaign_work_site = $.Body.find('#work-campaign-site');
-        $.official_work_site = $.Body.find('#work-official-site');
-        var temp_work_campaign = '',
-            temp_work_official = '';
-        for(var i = 0; i < work_campaign_array.length; i ++){
-            temp_work_campaign = 
-                            '<div class="work-item" cate="campaign" index="'+i+'">'+
-                                '<img class="work-item-thumb" draggable="false" src="images/work/work-'+work_campaign_array[i]['work-name']+'-'+'thumb'+'.png">'+
-                                '<div class="work-title">'+ work_campaign_array[i]['work-title']+'</div>'+
+        $.interface_work_site = $.Body.find('#work-interface-site');
+        $.graphic_work_site = $.Body.find('#work-graphic-site');
+        var temp_work_interface = '',
+            temp_work_graphic = '';
+        for(var i = 0; i < work_interface_array.length; i ++){
+            temp_work_interface = 
+                            '<div class="work-item" cate="interface" index="'+i+'">'+
+                                '<img class="work-item-thumb" draggable="false" src="images/work/work-'+work_interface_array[i]['work-name']+'-'+'thumb'+'.png">'+
+                                '<div class="work-title">'+ work_interface_array[i]['work-title']+'</div>'+
                                 '<div class="work-more btn">'+
                                     '<div class="vertical-center">'+
                                         '<p>more</p>'+
                                     '</div>'+
                                 '</div>'+
                             '</div>';
-            $.campaign_work_site.append(temp_work_campaign);
+            $.interface_work_site.append(temp_work_interface);
         }
-        for(var i = 0; i < work_official_array.length; i ++){
-            temp_work_official = 
-                            '<div class="work-item" cate="official" index="'+i+'">'+
-                                '<img class="work-item-thumb" draggable="false" src="images/work/work-'+work_official_array[i]['work-name']+'-'+'thumb'+'.png">'+
-                                '<div class="work-title">'+ work_official_array[i]['work-title']+'</div>'+
+        for(var i = 0; i < work_graphic_array.length; i ++){
+            temp_work_graphic = 
+                            '<div class="work-item" cate="graphic" index="'+i+'">'+
+                                '<img class="work-item-thumb" draggable="false" src="images/work/work-'+work_graphic_array[i]['work-name']+'-'+'thumb'+'.png">'+
+                                '<div class="work-title">'+ work_graphic_array[i]['work-title']+'</div>'+
                                 '<div class="work-more btn">'+
                                     '<div class="vertical-center">'+
                                         '<p>more</p>'+
                                     '</div>'+
                                 '</div>'+
                             '</div>';
-            $.official_work_site.append(temp_work_official);
+            $.graphic_work_site.append(temp_work_graphic);
         }
         $.detail_title = $.Body.find('#detail-title');
         $.detail_time = $.Body.find('#detail-time');
@@ -817,11 +810,11 @@ require(
         $.work_cate_item = $.Body.find('.work-cate-item');
         $.work_item_box = $.Body.find('#work-item-box');
         $.work_list = $.Body.find('#work-list');
-        $.campaign_work_item = $.Body.find('#work-campaign-site .work-item');
-        $.official_work_item = $.Body.find('#work-official-site .work-item');
-        $.official_work_item_first = $.official_work_item.eq(0).get(0);
-        $.go_campaign = $.Body.find('[go="campaign"]');
-        $.go_official = $.Body.find('[go="official"]');
+        $.interface_work_item = $.Body.find('#work-interface-site .work-item');
+        $.graphic_work_item = $.Body.find('#work-graphic-site .work-item');
+        $.graphic_work_item_first = $.graphic_work_item.eq(0).get(0);
+        $.go_interface = $.Body.find('[go="interface"]');
+        $.go_graphic = $.Body.find('[go="graphic"]');
         $.anchor = $.Body.find('.anchor');
         $.work_detail_list = $.Body.find('#work-detail-list');
         $.contact = $.Body.find('#contact');
@@ -832,8 +825,8 @@ require(
             }
         );
         window.cur_column = 0;
-        window.column_campaign = Math.ceil($.campaign_work_item.length/2);
-        window.column_official = Math.ceil($.official_work_item.length/2);
+        window.column_interface = Math.ceil($.interface_work_item.length/2);
+        window.column_graphic = Math.ceil($.graphic_work_item.length/2);
         // webMode = 'mobile';
         // if(webMode == 'PC'){
         //     $.Body.addClass('pc');
@@ -880,14 +873,14 @@ require(
         //             'offset-left': Math.floor($.work_item_box.offset().left)
         //         }
         //     );
-        //     $.campaign_work_item.eq(0).prop(
+        //     $.interface_work_item.eq(0).prop(
         //         {
-        //             'offset-left': Math.floor($.campaign_work_item.eq(0).offset().left)
+        //             'offset-left': Math.floor($.interface_work_item.eq(0).offset().left)
         //         }
         //     );
-        //     $.official_work_item.eq(0).prop(
+        //     $.graphic_work_item.eq(0).prop(
         //         {
-        //             'offset-left': Math.floor($.official_work_item.eq(0).offset().left)
+        //             'offset-left': Math.floor($.graphic_work_item.eq(0).offset().left)
         //         }
         //     );
         // }
@@ -940,14 +933,14 @@ require(
                         'offset-left': Math.floor($.work_item_box.offset().left)
                     }
                 );
-                $.campaign_work_item.eq(0).prop(
+                $.interface_work_item.eq(0).prop(
                     {
-                        'offset-left': Math.floor($.campaign_work_item.eq(0).offset().left)
+                        'offset-left': Math.floor($.interface_work_item.eq(0).offset().left)
                     }
                 );
-                $.official_work_item.eq(0).prop(
+                $.graphic_work_item.eq(0).prop(
                     {
-                        'offset-left': Math.floor($.official_work_item.eq(0).offset().left)
+                        'offset-left': Math.floor($.graphic_work_item.eq(0).offset().left)
                     }
                 );
             }
