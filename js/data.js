@@ -89,12 +89,12 @@ work_graphic_array = [
         'work-name':'igift',
         'thumb-num': 0,
         'work-title':'愛禮物官方網站',
-        'detail-title': '愛禮物愛禮物愛禮物愛禮物愛禮物愛禮物',
-        'detail-time': '2017.03',
+        'detail-title': '禮物官方網站Re-design',
+        'detail-time': '2018.05',
         'detail-tag-category':['Design','UI','UX','Website'],
         'detail-tag-tool':['Ps','Ai'],
         'detail-printscreen':['','',],
-        'link':'https://www.herdays.tw/',
+        'link':'',
         'device':['sp']
     },
     {
