@@ -734,7 +734,7 @@ require(
                 'work-name':'igift',
                 'thumb-num': 0,
                 'work-title':'愛禮物官方網站',
-                'detail-title': '愛禮物愛禮物愛禮物愛禮物愛禮物愛禮物',
+                'detail-title': '禮物官方網站Re-design',
                 'detail-time': '2017.03',
                 'detail-tag-category':['Design','UI','UX','Website'],
                 'detail-tag-tool':['Ps','Ai'],
