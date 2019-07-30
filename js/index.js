@@ -738,9 +738,9 @@ require(
                 'detail-time': '2017.03',
                 'detail-tag-category':['Design','UI','UX','Website'],
                 'detail-tag-tool':['Ps','Ai'],
-                'detail-printscreen':['','',],
+                'detail-printscreen':['',],
                 'link':'https://www.herdays.tw/',
-                'device':['sp']
+                'device':['pc','sp']
             },
             {
                 'work-name':'KnorrQCS',
