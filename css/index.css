@@ -110,7 +110,6 @@ nav .lmt                       {height: 100%;}
    -moz-transition: filter 0.2s; 
     -ms-transition: filter 0.2s; 
 				transition: filter 0.2s;}
-.work-item img                 {height: 280px;}		
 .work-item-thumb               {position: relative; display: block; width: 100%;}
 #work-interface-site           {width: calc( ( 500px + 65px ) * 1 ); /*background-color: #fee;*/}
 #work-graphic-site             {width: calc( ( 500px + 65px ) * 4 ); /*background-color: #faa;*/}
