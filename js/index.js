@@ -212,7 +212,7 @@ require(
                         // here we can consider finished the touch event
                         e.preventDefault();
                         dragStarted = false;
-                        console.log('mouseleave');
+                        // console.log('mouseleave');
                         $.work_list.trigger('mouseup');
                         // _self.html('mouseup or touchend');
 
@@ -412,12 +412,12 @@ require(
                                 sp_content();
                             } else if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1){
                                 $.tab_box.html('');
-                                console.log("sp");
+                                // console.log("sp");
                                 $.Body.attr({"show-pic":"sp"});
                                 sp_content();
                             } else if(work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
                                 $.tab_box.html('');
-                                console.log("pc");
+                                // console.log("pc");
                                 $.Body.attr({"show-pic":"pc"});
                                 pc_content();
                             }
@@ -429,12 +429,12 @@ require(
                                 sp_content();
                             } else if(work_data[temp_cate][temp_index]['device'].indexOf("sp") !== -1){
                                 $.tab_box.html('');
-                                console.log("sp");
+                                // console.log("sp");
                                 $.Body.attr({"show-pic":"sp"});
                                 sp_content();
                             } else if(work_data[temp_cate][temp_index]['device'].indexOf("pc") !== -1){
                                 $.tab_box.html('');
-                                console.log("pc");
+                                // console.log("pc");
                                 $.Body.attr({"show-pic":"pc"});
                                 pc_content();
                             }
@@ -445,7 +445,7 @@ require(
                                 temp_detail_content_pc = 
                                 '<img class="detail-printscreen" src="images/work/work-'+work_data[temp_cate][temp_index]['work-name']+'-'+i+'-pc.png">'+
                                 ((work_data[temp_cate][temp_index]['detail-printscreen'][i] == '')?'':'<p class="detail-word">'+work_data[temp_cate][temp_index]['detail-printscreen'][i]+'</p>');
-                                console.log(temp_detail_content_pc);
+                                // console.log(temp_detail_content_pc);
                                 $.detail_content_pc.append(temp_detail_content_pc);
                             }
                         }
@@ -663,7 +663,7 @@ require(
                 'detail-title': '提供店家線上下訂商品及回饋',
                 'detail-time': '2018.01',
                 'detail-tag-category':['UI','UX','App','Design'],
-                'detail-tag-tool':['html','css','sass','js','pixi.js'],
+                'detail-tag-tool':['Ps','Ai'],
                 'detail-printscreen':['','','','','','','','',''],
                 'link':'',
                 'device':['sp']
@@ -677,7 +677,7 @@ require(
                 'detail-title': '從品牌策略發想到設計執行，操作一波線上線下活動',
                 'detail-time': '2016.07',
                 'detail-tag-category':['Front-end','Website','RWD','UI','UX','Creative','Design','TVC'],
-                'detail-tag-tool':['html','css','sass','js','pixi.js','Ps','Ai'],
+                'detail-tag-tool':['Ps','Ai'],
                 'detail-printscreen':['','','','','','','','','','','','','',''],
                 'link':'https://www.youtube.com/watch?v=I3itvsCHgZk',
                 'device':['sp']
