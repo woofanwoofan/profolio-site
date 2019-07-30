@@ -745,8 +745,8 @@ require(
             {
                 'work-name':'KnorrQCS',
                 'thumb-num': 0,
-                'work-title':'白蘭官方網站',
-                'detail-title': '白蘭洗衣精官方網站Re-design',
+                'work-title':'康寶活動網站',
+                'detail-title': '康寶活動網站介面設計',
                 'detail-time': '2017.03',
                 'detail-tag-category':['Design','UI','UX','Website'],
                 'detail-tag-tool':['Ps','Ai'],
